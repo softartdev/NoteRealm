@@ -2,11 +2,7 @@ package com.softartdev.notedelight.shared.data
 
 import com.softartdev.notedelight.shared.PlatformSQLiteState
 import com.softartdev.notedelight.shared.database.AndroidDbRepo
-import com.softartdev.notedelight.shared.database.createQueryWrapper
-import com.softartdev.notedelight.shared.db.NoteDb
 import com.softartdev.notedelight.shared.test.util.StubEditable
-import com.squareup.sqldelight.db.SqlDriver
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse
@@ -41,10 +37,7 @@ class CryptUseCaseUnitTest {
 
     @Test
     fun `check correct password`() = runBlocking {
-        val driver: SqlDriver = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY)
-        NoteDb.Schema.create(driver)
-        val noteDb = createQueryWrapper(driver)
-        Mockito.`when`(mockDbRepo.noteQueries).thenReturn(noteDb.noteQueries)
+//        Mockito.`when`(mockDbRepo.noteQueries).thenReturn(noteDb.noteQueries)TODO("remove or change on Realm")
         val pass = StubEditable("correct password")
         assertTrue(cryptUseCase.checkPassword(pass))
     }

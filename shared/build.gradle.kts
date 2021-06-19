@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("kotlinx-atomicfu")
     id("com.android.library")
 }
 group = "com.softartdev.notedelight.shared"

@@ -2,10 +2,7 @@ package com.softartdev.notedelight.shared.data
 
 import com.softartdev.notedelight.shared.database.AndroidDbRepo
 import com.softartdev.notedelight.shared.database.TestSchema
-import com.softartdev.notedelight.shared.database.createQueryWrapper
 import com.softartdev.notedelight.shared.db.Note
-import com.softartdev.notedelight.shared.db.NoteDb
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
@@ -22,21 +19,16 @@ class NoteUseCaseUnitTest {
     private val mockDbRepo = Mockito.mock(AndroidDbRepo::class.java)
     private val noteUseCase = NoteUseCase(mockDbRepo)
 
-    private val noteDb = JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).let { driver ->
-        NoteDb.Schema.create(driver)
-        return@let createQueryWrapper(driver)
-    }
     private val notes: List<Note> = listOf(TestSchema.firstNote, TestSchema.secondNote, TestSchema.thirdNote)
 
     @Before
     fun setUp() = runBlocking<Unit> {
-        notes.forEach(noteDb.noteQueries::insert)
-        Mockito.`when`(mockDbRepo.noteQueries).thenReturn(noteDb.noteQueries)
+//        Mockito.`when`(mockDbRepo.noteQueries).thenReturn(noteDb.noteQueries)TODO("remove or change on Realm")
     }
 
     @After
     fun tearDown() = runBlocking {
-        noteDb.noteQueries.deleteAll()
+//        noteDb.noteQueries.deleteAll()TODO("remove or change on Realm")
     }
 
     @Test

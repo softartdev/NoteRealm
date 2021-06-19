@@ -2,7 +2,8 @@ package com.softartdev.notedelight.shared.data
 
 import com.softartdev.notedelight.shared.BaseTest
 import com.softartdev.notedelight.shared.database.TestSchema
-import com.squareup.sqldelight.internal.Atomic
+import kotlinx.atomicfu.AtomicInt
+import kotlinx.atomicfu.atomic
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first
 import kotlin.test.*
@@ -15,16 +16,12 @@ class NoteUseCaseTest : BaseTest() {
 
     @BeforeTest
     fun setUp() = runTest {
-        val noteDb = dbRepo.buildDatabaseInstanceIfNeed().noteDb
-        noteDb.noteQueries.transaction {
-            notes.forEach(noteDb.noteQueries::insert)
-        }
+        //TODO("remove or change on Realm")
     }
 
     @AfterTest
     fun tearDown() = runTest {
-        val noteDb = dbRepo.buildDatabaseInstanceIfNeed().noteDb
-        noteDb.noteQueries.deleteAll()
+        //TODO("remove or change on Realm")
     }
 
     @Test
@@ -43,12 +40,12 @@ class NoteUseCaseTest : BaseTest() {
 
     @Test
     fun launchNotes() {
-        val count = Atomic(0)
+        val count: AtomicInt = atomic(0)
         noteUseCase.launchNotes(onSuccess = { actNotes ->
-            count.set(count.get() + 1)
-            println("launchNotes - #${count.get()} onSuccess = $actNotes")
+            count.incrementAndGet()
+            println("launchNotes - #$count onSuccess = $actNotes")
             if (actNotes.isNotEmpty()) {
-                println("launchNotes - #${count.get()} assertEquals")
+                println("launchNotes - #$count assertEquals")
                 assertEquals(notes, actNotes)
             }
         }, onFailure = { throwable -> throw throwable })
