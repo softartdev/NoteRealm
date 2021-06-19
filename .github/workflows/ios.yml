@@ -1,9 +1,9 @@
 name: iOS starter workflow
 
-on: # Trigger the workflow on push, as well as pull request events
+on:
   push:
-  pull_request:
-    branches: [ master ] # This configuration does not affect the push event above
+    branches:
+      - '*'
 
 jobs:
   build:
