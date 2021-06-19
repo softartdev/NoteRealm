@@ -4,7 +4,6 @@ import com.softartdev.notedelight.shared.data.NoteUseCase
 import com.softartdev.notedelight.shared.db.Note
 import com.softartdev.notedelight.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.map
-import net.sqlcipher.database.SQLiteException
 
 
 class MainViewModel (
@@ -23,7 +22,7 @@ class MainViewModel (
             })
 
     override fun errorResult(throwable: Throwable): NoteListResult = when (throwable) {
-        is SQLiteException -> NoteListResult.NavMain
+//        is SQLiteException -> NoteListResult.NavMain//TODO("remove or change on Realm")
         else -> NoteListResult.Error(throwable.message)
     }
 

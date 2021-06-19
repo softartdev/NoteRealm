@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
-    id("com.squareup.sqldelight")
     id("com.android.library")
 }
 group = "com.softartdev.notedelight.shared"
@@ -53,7 +52,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.extra["coroutines_version"]}")
-                implementation("com.squareup.sqldelight:coroutines-extensions:${rootProject.extra["sqldelight_version"]}")
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
                 api("com.squareup.okio:okio-multiplatform:2.9.0")
             }
@@ -67,13 +65,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.extra["coroutines_version"]}")
-                api("com.squareup.sqldelight:android-driver:${rootProject.extra["sqldelight_version"]}")
-                val sqliteVersion = "2.1.0"
-                implementation("androidx.sqlite:sqlite:$sqliteVersion")
-                implementation("androidx.sqlite:sqlite-ktx:$sqliteVersion")
-                implementation("androidx.sqlite:sqlite-framework:$sqliteVersion")
-                api("com.commonsware.cwac:saferoom.x:1.3.0")
-                api("net.zetetic:android-database-sqlcipher:4.4.2@aar")
                 implementation("com.jakewharton.timber:timber:${rootProject.extra["timber_version"]}")
             }
         }
@@ -86,13 +77,10 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${rootProject.extra["coroutines_version"]}")
                 implementation("org.mockito:mockito-core:${rootProject.extra["mockito_version"]}")
                 implementation("org.mockito:mockito-inline:${rootProject.extra["mockito_version"]}")
-                implementation("com.squareup.sqldelight:sqlite-driver:${rootProject.extra["sqldelight_version"]}")
             }
         }
         val iosMain by getting {
             dependencies {
-                implementation("com.squareup.sqldelight:native-driver:${rootProject.extra["sqldelight_version"]}")
-                api("io.github.softartdev:sqlcipher-ktn-pod:1.0")
             }
         }
         val iosTest by getting
@@ -103,12 +91,5 @@ kotlin {
         ios.deploymentTarget = "14.0"
         podfile = project.file("../iosApp/Podfile")
         useLibraries()
-//        pod("SQLCipher", "~> 4.4.2")
-    }
-}
-sqldelight {
-    database("NoteDb") {
-        packageName = "com.softartdev.notedelight.shared.db"
-//        linkSqlite = false
     }
 }

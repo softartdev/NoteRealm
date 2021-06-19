@@ -2,8 +2,6 @@ package com.softartdev.notedelight.shared.data
 
 import com.softartdev.notedelight.shared.PlatformSQLiteState
 import com.softartdev.notedelight.shared.database.DatabaseRepo
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.firstOrNull
 import kotlin.time.ExperimentalTime
 
@@ -23,7 +21,6 @@ class CryptUseCase(
         dbRepo.closeDatabase()
         val passphrase = StringBuilder(pass) // threadsafe
         dbRepo.buildDatabaseInstanceIfNeed(passphrase)
-        dbRepo.noteQueries.getAll().asFlow().mapToList().firstOrNull()//TODO remove if no need (after tests for sign in)
         true
     } catch (t: Throwable) {
         t.printStackTrace()

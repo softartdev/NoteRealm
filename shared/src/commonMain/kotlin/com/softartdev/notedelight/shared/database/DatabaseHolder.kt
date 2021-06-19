@@ -1,14 +1,10 @@
 package com.softartdev.notedelight.shared.database
 
-import com.softartdev.notedelight.shared.db.NoteDb
-import com.softartdev.notedelight.shared.db.NoteQueries
-import com.squareup.sqldelight.db.SqlDriver
-
-
 abstract class DatabaseHolder {
-    abstract val driver: SqlDriver
-    abstract val noteDb: NoteDb
-    abstract val noteQueries: NoteQueries
+    //TODO remove or change on Realm:
+//    abstract val driver: SqlDriver
+//    abstract val noteDb: NoteDb
+//    abstract val noteQueries: NoteQueries
 
     abstract fun close()
 }

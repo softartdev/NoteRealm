@@ -2,10 +2,7 @@ package com.softartdev.notedelight.shared.database
 
 import android.content.Context
 import android.text.SpannableStringBuilder
-import com.commonsware.cwac.saferoom.SQLCipherUtils
-import com.commonsware.cwac.saferoom.SafeHelperFactory
 import com.softartdev.notedelight.shared.PlatformSQLiteState
-import com.softartdev.notedelight.shared.db.NoteQueries
 
 class AndroidDbRepo(
         private val context: Context
@@ -14,15 +11,7 @@ class AndroidDbRepo(
     private var databaseHolder: DatabaseHolder? = null
 
     override val databaseState: PlatformSQLiteState
-        @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-        get() = when (SQLCipherUtils.getDatabaseState(context, DB_NAME)) {
-            SQLCipherUtils.State.DOES_NOT_EXIST -> PlatformSQLiteState.DOES_NOT_EXIST
-            SQLCipherUtils.State.UNENCRYPTED -> PlatformSQLiteState.UNENCRYPTED
-            SQLCipherUtils.State.ENCRYPTED -> PlatformSQLiteState.ENCRYPTED
-        }
-
-    override val noteQueries: NoteQueries
-        get() = buildDatabaseInstanceIfNeed("").noteQueries
+        get() = TODO("remove or change on Realm")
 
     override fun buildDatabaseInstanceIfNeed(
             passphrase: CharSequence
@@ -44,7 +33,7 @@ class AndroidDbRepo(
         oldCopy.getChars(0, oldCopy.length, passphrase, 0)
 
         closeDatabase()
-        SQLCipherUtils.decrypt(context, originalFile, passphrase)
+//        SQLCipherUtils.decrypt(context, originalFile, passphrase)TODO("remove or change on Realm")
 
         buildDatabaseInstanceIfNeed()
     }
@@ -53,8 +42,8 @@ class AndroidDbRepo(
         val passphrase = SpannableStringBuilder(newPass) // threadsafe
 
         val androidDatabaseHolder = buildDatabaseInstanceIfNeed(oldPass) as AndroidDatabaseHolder
-        val supportSQLiteDatabase = androidDatabaseHolder.openDatabase
-        SafeHelperFactory.rekey(supportSQLiteDatabase, passphrase)
+//        val supportSQLiteDatabase = androidDatabaseHolder.openDatabase
+//        SafeHelperFactory.rekey(supportSQLiteDatabase, passphrase)TODO("remove or change on Realm")
 
         buildDatabaseInstanceIfNeed(newPass)
     }
@@ -63,7 +52,7 @@ class AndroidDbRepo(
         val passphrase = SpannableStringBuilder(newPass) // threadsafe
 
         closeDatabase()
-        SQLCipherUtils.encrypt(context, DB_NAME, passphrase)
+//        SQLCipherUtils.encrypt(context, DB_NAME, passphrase)TODO("remove or change on Realm")
 
         buildDatabaseInstanceIfNeed(newPass)
     }
