@@ -2,7 +2,6 @@ package com.softartdev.notedelight.shared.database
 
 import com.softartdev.notedelight.shared.PlatformSQLiteState
 import com.softartdev.notedelight.shared.data.PlatformSQLiteThrowable
-import com.softartdev.notedelight.shared.db.NoteQueries
 import kotlin.native.concurrent.freeze
 
 class IosDbTestRepo : DatabaseRepo() {
@@ -11,9 +10,6 @@ class IosDbTestRepo : DatabaseRepo() {
 
     override val databaseState: PlatformSQLiteState
         get() = TODO("Not yet implemented")
-
-    override val noteQueries: NoteQueries
-        get() = dbHolder?.noteQueries ?: throw PlatformSQLiteThrowable("DB is null")
 
     override fun buildDatabaseInstanceIfNeed(passphrase: CharSequence): DatabaseHolder {
         if (dbHolder != null) {
