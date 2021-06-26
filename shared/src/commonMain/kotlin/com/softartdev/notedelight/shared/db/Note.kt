@@ -1,23 +1,16 @@
 package com.softartdev.notedelight.shared.db
 
+import com.softartdev.notedelight.shared.date.createLocalDateTime
+import io.realm.PrimaryKey
+import io.realm.RealmObject
 import kotlin.Long
 import kotlin.String
 import kotlinx.datetime.LocalDateTime
 
-public data class Note(
-    public val id: Long,
-    public val title: String,
-    public val text: String,
-    public val dateCreated: LocalDateTime,
-    public val dateModified: LocalDateTime
-) {
-    public override fun toString(): String = """
-  |Note [
-  |  id: $id
-  |  title: $title
-  |  text: $text
-  |  dateCreated: $dateCreated
-  |  dateModified: $dateModified
-  |]
-  """.trimMargin()
+class Note : RealmObject {
+    @PrimaryKey var id: Long = 0
+    var title: String = ""
+    var text: String = ""
+    var dateCreated: LocalDateTime = createLocalDateTime()
+    var dateModified: LocalDateTime = createLocalDateTime()
 }

@@ -11,7 +11,7 @@ class AndroidDbRepo(
     private var databaseHolder: DatabaseHolder? = null
 
     override val databaseState: PlatformSQLiteState
-        get() = TODO("remove or change on Realm")
+        get() = PlatformSQLiteState.UNENCRYPTED//TODO("remove or change on Realm")
 
     override fun buildDatabaseInstanceIfNeed(
             passphrase: CharSequence

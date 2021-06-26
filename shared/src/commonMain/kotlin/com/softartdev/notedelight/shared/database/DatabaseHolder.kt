@@ -1,10 +1,13 @@
 package com.softartdev.notedelight.shared.database
 
+import com.softartdev.notedelight.shared.db.Note
+import io.realm.Realm
+import io.realm.RealmConfiguration
+
 abstract class DatabaseHolder {
-    //TODO remove or change on Realm:
-//    abstract val driver: SqlDriver
-//    abstract val noteDb: NoteDb
-//    abstract val noteQueries: NoteQueries
+
+    val configuration = RealmConfiguration(schema = setOf(Note::class))
+    val realm = Realm.open(configuration)
 
     abstract fun close()
 }

@@ -34,7 +34,13 @@ class NoteViewModelTest {
     private val title: String = "title"
     private val text: String = "text"
     private val ldt: LocalDateTime = createLocalDateTime()
-    private val note = Note(id, title, text, ldt, ldt)
+    private val note = Note().apply {
+        this@apply.id = this@NoteViewModelTest.id
+        this@apply.title = this@NoteViewModelTest.title
+        this@apply.text = this@NoteViewModelTest.text
+        this@apply.dateCreated = this@NoteViewModelTest.ldt
+        this@apply.dateModified = this@NoteViewModelTest.ldt
+    }
     private val titleChannel = Channel<String>()
 
     @Before

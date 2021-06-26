@@ -1,12 +1,14 @@
 package com.softartdev.notedelight.shared.database
 
 import com.softartdev.notedelight.shared.PlatformSQLiteState
+import io.realm.Realm
 
 abstract class DatabaseRepo {
 
     abstract val databaseState: PlatformSQLiteState
 
-//    abstract val noteQueries: NoteQueries//TODO remove or change on Realm
+    open val realm: Realm
+        get() = buildDatabaseInstanceIfNeed().realm
 
     var relaunchFlowEmitter: (() -> Unit)? = null
 

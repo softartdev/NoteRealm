@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
+    id("io.realm.kotlin")
     kotlin("native.cocoapods")
     id("kotlinx-atomicfu")
     id("com.android.library")
@@ -52,6 +53,7 @@ kotlin {
         }
         val commonMain by getting {
             dependencies {
+                implementation("io.realm.kotlin:library:${rootProject.extra["realm_version"]}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.extra["coroutines_version"]}")
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
                 api("com.squareup.okio:okio-multiplatform:2.9.0")
